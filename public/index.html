@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>BitCheck – Bitcoin Wallet Balance Checker</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <span class="brand-icon">₿</span>
+      <span class="brand-text">BitCheck</span>
+    </div>
+    <span class="tagline">Bitcoin wallet balance checker</span>
+  </div>
+</header>
+
+<main class="page">
+  <section class="card">
+    <h1>Check a Bitcoin wallet</h1>
+    <p class="subtitle">
+      Enter a valid Bitcoin address below to view its current on-chain balance and total transactions.
+    </p>
+
+    <form id="balance-form" class="form">
+      <label for="address">Bitcoin address</label>
+      <input
+              type="text"
+              id="address"
+              name="address"
+              placeholder="Enter a valid Bitcoin address here"
+              autocomplete="off"
+              required
+      />
+      <p class="helper">
+        Tip: You can copy an address from any block explorer or Bitcoin wallet.
+      </p>
+      <button type="submit">Check balance</button>
+    </form>
+
+    <div id="result" class="result hidden"></div>
+    <div id="error" class="error hidden"></div>
+  </section>
+
+  <footer class="footer">
+    <p>Built by Harshit Uppala · BitCheck</p>
+    <p class="footer-note">Uses public data from the Blockstream Bitcoin API.</p>
+  </footer>
+</main>
+
+<script>
+  const form = document.getElementById("balance-form");
+  const resultEl = document.getElementById("result");
+  const errorEl = document.getElementById("error");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const address = document.getElementById("address").value.trim();
+
+    resultEl.classList.add("hidden");
+    errorEl.classList.add("hidden");
+    resultEl.innerHTML = "";
+    errorEl.textContent = "";
+
+    if (!address) {
+      errorEl.textContent = "Please enter a Bitcoin address.";
+      errorEl.classList.remove("hidden");
+      return;
+    }
+
+    try {
+      resultEl.innerHTML = "<p>Checking balance…</p>";
+      resultEl.classList.remove("hidden");
+
+      const res = await fetch(`/api/balance/${encodeURIComponent(address)}`);
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || "Failed to fetch balance.");
+      }
+
+      resultEl.innerHTML = `
+        <h2>Address summary</h2>
+        <p><strong>Address:</strong> ${data.address}</p>
+        <p><strong>Balance:</strong> ${data.balanceBTC.toFixed(8)} BTC (${data.balanceSats} sats)</p>
+        <p><strong>Total transactions:</strong> ${data.totalTxs}</p>
+      `;
+    } catch (err) {
+      resultEl.classList.add("hidden");
+      errorEl.textContent =
+              err.message || "Unable to retrieve balance. Please try again.";
+      errorEl.classList.remove("hidden");
+    }
+  });
+</script>
+</body>
+</html>
