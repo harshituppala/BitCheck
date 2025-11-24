@@ -1,0 +1,74 @@
+BitCheck – Bitcoin Wallet Balance Checker
+
+BitCheck is a lightweight web application that lets users check the real-time on-chain balance of any Bitcoin wallet address.  
+It uses the public "Blockstream Bitcoin API" to fetch address data and displays the balance in both BTC and satoshis.
+
+This project was built as part of my portfolio for full-stack and backend development practice.
+
+---
+
+Features
+
+-  Look up any Bitcoin wallet address  
+-  Shows balance in "BTC" and "satoshis"  
+-  Displays total confirmed on-chain transactions  
+-  Fast backend using Node.js + Express  
+-  Clean and responsive UI  
+-  Uses Blockstream's public blockchain API (no API key required)
+
+---
+Live Demo
+
+https://bitcheck-wrk5.onrender.com/
+
+Click the link above to test the deployed version instantly.
+
+---
+
+🛠 Tech Stack
+
+**Backend**
+- Node.js  
+- Express.js  
+- Axios (API requests)
+
+**Frontend**
+- HTML  
+- CSS  
+- Vanilla JavaScript (Fetch API)
+
+**Infrastructure**
+- Public Blockstream REST API
+
+---
+To Run the project loaclly
+
+
+1. Clone the repository
+```bash
+git clone https://github.com/harshituppala/bitcheck.git
+cd bitcheck
+
+2. Install dependencies
+npm install
+
+3. Start the development server
+npm run dev
+
+4. visit the local app
+click on the link that looks like "http://localhost:3000"
+
+---
+
+API Used
+
+Blockstream Bitcoin REST API
+https://blockstream.info/api/
+
+---
+
+Author
+
+Harshit Uppala
+GitHub: https://github.com/harshituppala
+
