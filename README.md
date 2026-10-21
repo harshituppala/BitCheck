@@ -23,6 +23,5 @@ Only confirmed chain statistics are used. Mempool activity is not included, so t
 
 Availability depends on Blockstream. The server currently returns a generic 500 for lookup failures rather than distinguishing invalid input, upstream rejection and timeouts. Address validation and rate limiting need work before broader public use. No automated test suite is recorded in this repository.
 
-Installed dependencies and editor files are excluded from the current tree; the lockfile remains. Previous hosted links are not claimed as verified by this documentation pass.
 
 [Blockstream Esplora API](https://github.com/Blockstream/esplora/blob/master/API.md)
